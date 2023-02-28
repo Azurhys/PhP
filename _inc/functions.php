@@ -1,38 +1,47 @@
 <?php
 
-function processContactForm() {
-    // Vérifier si le formulaire a été soumis
-    if(isset($_POST['submit'])) {
-        
-        // Récupérer les données soumises par le formulaire
-        $firstname = trim($_POST['firstname']);
-        $lastname = trim($_POST['lastname']);
-        $email = trim($_POST['email']);
-        $subject = trim($_POST['subject']);
-        $message = trim($_POST['message']);
-        
-        // Valider les données
-        if(empty($firstname) || empty($lastname) || empty($email) || empty($subject) || empty($message)) {
-            echo "Tous les champs sont obligatoires.";
-            return false;
-        }
-        
-        if(!isEmail($email)) {
-            echo "L'adresse email n'est pas valide.";
-            return false;
-        }
-        
-        if(!isLong($subject) || !isLong($message)) {
-            echo "Le sujet et le message doivent comporter au moins 10 caractères.";
-            return false;
-        }
-        
-        
-        return true;
-    }
-    
-    return false;
+function processContactForm($name, $email, $message)
+{
+  $errors = validateContactForm($name, $email, $message);
+
+  if (empty($errors)) {
+    // Envoyer le message de contact par e-mail ou le sauvegarder dans la base de données
+
+    // Enregistrer un message flash dans la session pour informer l'utilisateur que le message a été envoyé avec succès
+    $_SESSION['notice'] = "Vous serez contacté dans les plus brefs délais.";
+
+    // Rediriger l'utilisateur vers la page d'accueil
+    header('Location: index.php');
+    exit();
+  }
+
+  return $errors;
 }
+
+function validateContactForm($name, $email, $message)
+{
+  $errors = [];
+
+  // Vérifier le nom
+  if (empty($name)) {
+    $errors[] = "Le nom est obligatoire.";
+  }
+
+  // Vérifier l'adresse e-mail
+  if (empty($email)) {
+    $errors[] = "L'adresse e-mail est obligatoire.";
+  } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $errors[] = "L'adresse e-mail n'est pas valide.";
+  }
+
+  // Vérifier le message
+  if (empty($message)) {
+    $errors[] = "Le message est obligatoire.";
+  }
+
+  return $errors;
+}
+
 
 function isEmail($email) {
     return filter_var($email, FILTER_VALIDATE_EMAIL);
@@ -135,5 +144,39 @@ function get_random_games($n) {
     return password_verify($password, $admin['password']);
   }
 
-
+  
+  function getSessionFlashMessage($key)
+  {
+    if (array_key_exists($key, $_SESSION)) {
+      $value = $_SESSION[$key];
+      unset($_SESSION[$key]);
+      return $value;
+    }
+    return null;
+  }
+  function processLoginForm($email, $password)
+  {
+    $errors = validateLoginForm($email, $password);
+  
+    if (empty($errors)) {
+      // Vérifier si les identifiants de l'administrateur sont valides
+      if (verify_admin_credentials($email, $password)) {
+        // Stocker l'identifiant de l'administrateur dans la session
+        $admin_id = get_admin_by_email($email);
+        $_SESSION['user'] = $admin_id;
+  
+        // Rediriger l'utilisateur vers la page d'accueil
+        header('Location: index.php');
+        exit();
+      } else {
+        $errors[] = "Identifiants incorrects.";
+      }
+    } else {
+      // Enregistrer un message flash dans la session pour informer l'utilisateur des erreurs
+      $_SESSION['notice'] = "Identifiants incorrects.";
+    }
+  
+    return $errors;
+  }
+  
 ?>

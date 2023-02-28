@@ -12,7 +12,7 @@ session_start();
 
 <?php
 include('./_inc/functions.php');
-processContactForm();
+processContactForm($name, $email, $message);
 ?>
 
 <?php include('./_inc/header.php'); ?>

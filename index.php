@@ -8,7 +8,18 @@
 ?>
 
 <!-- Contenu de la page -->
-<h1>Accueil </h1>
+<div class="container">
+<h1>Bienvenue sur notre site web !</h1>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor felis non velit blandit, eu aliquam purus lobortis. Duis sit amet ex risus. Fusce finibus blandit nibh, ac bibendum nulla gravida a. In scelerisque enim vitae lorem aliquet, eu bibendum sapien eleifend. Ut venenatis sapien vel mauris malesuada aliquet. Integer iaculis auctor orci, vel efficitur ipsum fringilla id.</p>
+
+  <?php
+  $message = getSessionFlashMessage('notice');
+  if ($message !== null) {
+    echo "<div class='notice'>$message</div>";
+  }
+  ?>
+</div>
+
 <div class="game-list">
     <?php foreach ($games as $game): ?>
       <div class="game">

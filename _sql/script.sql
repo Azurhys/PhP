@@ -16,7 +16,7 @@ INSERT INTO videogames.game (id, title, description, release_date, poster, price
 (2, 'The Legend of Zelda: Ocarina of Time', 'Jeu video d\'action-aventure', '1998-11-23', 'https://example.com/zelda-ocarina-of-time.jpg', 49.99),
 (3, 'Grand Theft Auto V', 'Jeu video d\'action-aventure', '2013-09-17', 'https://example.com/gta5.jpg', 29.99);
 
-CREATE TABLE admin (
+CREATE TABLE videogames.admin (
   id TINYINT PRIMARY KEY,
   email VARCHAR(255) UNIQUE,
   password VARCHAR(255)
