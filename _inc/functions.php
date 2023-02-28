@@ -100,4 +100,40 @@ function get_random_games($n) {
     return $game;
   }
 
+  function validateLoginForm($email, $password) {
+    $errors = array();
+  
+    if (empty($email)) {
+      $errors[] = "L'adresse e-mail est obligatoire.";
+    }
+  
+    if (empty($password)) {
+      $errors[] = "Le mot de passe est obligatoire.";
+    }
+  
+    return $errors;
+  }
+
+  function get_admin_by_email($email) {
+    $conn = connect_db();
+    $email = $conn->real_escape_string($email);
+    $sql = "SELECT * FROM admin WHERE email='$email'";
+    $result = $conn->query($sql);
+    $admin = null;
+    if ($result->num_rows > 0) {
+      $admin = $result->fetch_assoc();
+    }
+    $conn->close();
+    return $admin;
+  }
+
+  function verify_admin_credentials($email, $password) {
+    $admin = get_admin_by_email($email);
+    if (!$admin) {
+      return false;
+    }
+    return password_verify($password, $admin['password']);
+  }
+
+
 ?>

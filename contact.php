@@ -7,6 +7,7 @@ if (isset($_POST['submit'])) {
   $message = $_POST['message'];
   $submissionDate = new DateTime();
 }
+session_start();
 ?>
 
 <?php
