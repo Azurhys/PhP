@@ -52,7 +52,7 @@ function isLong($value) {
 }
 
 function connect_db() {
-    $host = 'localhost:3306'; // remplacer par votre hôte de base de données
+    $host = 'localhost'; // remplacer par votre hôte de base de données
     $username = 'root'; // remplacer par votre nom d'utilisateur
     $password = ''; // remplacer par votre mot de passe
     $database = 'videogames'; // remplacer par le nom de votre base de données

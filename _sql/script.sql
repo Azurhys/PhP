@@ -22,5 +22,5 @@ CREATE TABLE videogames.admin (
   password VARCHAR(255)
 );
 
-INSERT INTO admin (id, email, password)
+INSERT INTO videogames.admin (id, email, password)
 VALUES (1, 'admin@example.com', '013ece159bcb3142e0ee60181be5b23b');
