@@ -1,20 +1,22 @@
 <?php
-if (isset($_POST['submit'])) {
-  $firstname = $_POST['firstname'];
-  $lastname = $_POST['lastname'];
-  $email = $_POST['email'];
-  $subject = $_POST['subject'];
-  $message = $_POST['message'];
-  $submissionDate = new DateTime();
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
 }
-session_start();
-?>
+require_once './_inc/functions.php';
 
-<?php
-include('./_inc/functions.php');
-processContactForm($name, $email, $message);
-?>
+// Traiter le formulaire de contact
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $name = $_POST['name'] ?? '';
+  $email = $_POST['email'] ?? '';
+  $message = $_POST['message'] ?? '';
 
+  $errors = validateContactForm($name, $email, $message);
+
+  if (empty($errors)) {
+    processContactForm($name, $email, $message);
+  }
+}
+?>
 <?php include('./_inc/header.php'); ?>
 
 <?php include('./_inc/nav.php'); ?>

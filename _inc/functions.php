@@ -178,5 +178,13 @@ function get_random_games($n) {
   
     return $errors;
   }
+  function getSessionData($key)
+  {
+    if (array_key_exists($key, $_SESSION)) {
+      return $_SESSION[$key];
+    } else {
+      return null;
+    }
+  }
   
 ?>

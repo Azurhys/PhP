@@ -1,5 +1,7 @@
 <?php
-  session_start();
+  if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+  }
   include('./_inc/header.php');
   include('./_inc/nav.php');
   require_once './_inc/functions.php';
