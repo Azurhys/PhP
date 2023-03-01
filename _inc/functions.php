@@ -161,7 +161,6 @@ function verify_admin_credentials($email, $password) {
   function processLoginForm($email, $password)
   {
     $errors = validateLoginForm($email, $password);
-  
     if (empty($errors)) {
       // Vérifier si les identifiants de l'administrateur sont valides
       if (verify_admin_credentials($email, $password)) {
@@ -178,7 +177,7 @@ function verify_admin_credentials($email, $password) {
       // Enregistrer un message flash dans la session pour informer l'utilisateur des erreurs
       $_SESSION['notice'] = "Identifiants incorrects.";
     }
-  
+    
     return $errors;
   }
   function getSessionData($key)

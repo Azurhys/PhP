@@ -17,6 +17,7 @@ if ($error) {
     echo '<div class="alert alert-danger">' . $error . '</div>';
 }
 ?>
+
 <!-- Contenu de la page -->
 <div class="container">
 <h1>Bienvenue sur notre site web !</h1>
