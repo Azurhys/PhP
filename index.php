@@ -20,16 +20,18 @@ if ($error) {
 
 <!-- Contenu de la page -->
 <div class="container">
+<?php
+  $message = getSessionFlashMessage('notice');
+  if ($message !== null) {
+    echo "<div class='notice'><h1 class='text-danger'>$message</h1></div>";
+  }
+  ?>
+
 <h1>Bienvenue sur notre site web !</h1>
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor felis non velit blandit, eu aliquam purus lobortis. Duis sit amet ex risus. Fusce finibus blandit nibh, ac bibendum nulla gravida a. In scelerisque enim vitae lorem aliquet, eu bibendum sapien eleifend. Ut venenatis sapien vel mauris malesuada aliquet. Integer iaculis auctor orci, vel efficitur ipsum fringilla id.</p>
 
-  <?php
-  $message = getSessionFlashMessage('notice');
-  if ($message !== null) {
-    echo "<div class='notice'>$message</div>";
-  }
-  ?>
-</div>
+  
+
 
 <div class="game-list">
     <?php foreach ($games as $game): ?>
@@ -41,7 +43,7 @@ if ($error) {
       </div>
     <?php endforeach ?>
 </div>
-
+</div>
 <?php
   include('./_inc/footer.php');
 ?>
