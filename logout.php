@@ -2,7 +2,7 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
   }
-require_once 'functions.php';
+require_once './_inc/functions.php';
 
 // Supprimer la clé 'user' de la session
 unset($_SESSION['user']);

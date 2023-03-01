@@ -129,15 +129,17 @@ function get_random_games($n) {
     $sql = "SELECT * FROM admin WHERE email='$email'";
     $result = $conn->query($sql);
     $admin = null;
+
     if ($result->num_rows > 0) {
       $admin = $result->fetch_assoc();
     }
     $conn->close();
     return $admin;
-  }
+}
 
-  function verify_admin_credentials($email, $password) {
+function verify_admin_credentials($email, $password) {
     $admin = get_admin_by_email($email);
+    // exit(var_dump( password_verify($password, $admin['password'])  ));
     if (!$admin) {
       return false;
     }
@@ -154,6 +156,8 @@ function get_random_games($n) {
     }
     return null;
   }
+
+  
   function processLoginForm($email, $password)
   {
     $errors = validateLoginForm($email, $password);
@@ -164,7 +168,6 @@ function get_random_games($n) {
         // Stocker l'identifiant de l'administrateur dans la session
         $admin_id = get_admin_by_email($email);
         $_SESSION['user'] = $admin_id;
-  
         // Rediriger l'utilisateur vers la page d'accueil
         header('Location: index.php');
         exit();

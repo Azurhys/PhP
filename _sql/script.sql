@@ -23,4 +23,4 @@ CREATE TABLE videogames.admin (
 );
 
 INSERT INTO videogames.admin (id, email, password)
-VALUES (1, 'admin@example.com', '013ece159bcb3142e0ee60181be5b23b');
+VALUES (1, 'admin@example.com', '$argon2i$v=19$m=16,t=2,p=1$WXAwMkU2OGtSRngwNDFaSQ$iGwjcHC+ZXzJZg5bqp9fIw');
