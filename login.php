@@ -17,7 +17,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 ?>
+<?php
 
+$error = getSessionFlashMessage('error');
+
+// Afficher les messages d'erreur s'il y en a
+if ($error) {
+    echo '<div class="alert alert-danger">' . $error . '</div>';
+}
+?>
 <div class="container">
   <h1>Connexion à l'espace d'administration</h1>
 

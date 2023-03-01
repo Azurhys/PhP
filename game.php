@@ -6,7 +6,15 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
   }
 ?>
+<?php
 
+$error = getSessionFlashMessage('error');
+
+// Afficher les messages d'erreur s'il y en a
+if ($error) {
+    echo '<div class="alert alert-danger">' . $error . '</div>';
+}
+?>
 <?php
 if (!isset($_GET['id'])) {
   header("Location: index.php");

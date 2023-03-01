@@ -8,7 +8,15 @@
 
   $games = get_random_games(3);
 ?>
+<?php
 
+$error = getSessionFlashMessage('error');
+
+// Afficher les messages d'erreur s'il y en a
+if ($error) {
+    echo '<div class="alert alert-danger">' . $error . '</div>';
+}
+?>
 <!-- Contenu de la page -->
 <div class="container">
 <h1>Bienvenue sur notre site web !</h1>

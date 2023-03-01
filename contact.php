@@ -16,6 +16,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     processContactForm($name, $email, $message);
   }
 }
+
+?>
+<?php
+
+$error = getSessionFlashMessage('error');
+
+// Afficher les messages d'erreur s'il y en a
+if ($error) {
+    echo '<div class="alert alert-danger">' . $error . '</div>';
+}
 ?>
 <?php include('./_inc/header.php'); ?>
 

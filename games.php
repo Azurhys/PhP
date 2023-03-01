@@ -7,7 +7,15 @@ require_once './_inc/header.php';
 require_once './_inc/nav.php';
 
 ?>
+<?php
 
+$error = getSessionFlashMessage('error');
+
+// Afficher les messages d'erreur s'il y en a
+if ($error) {
+    echo '<div class="alert alert-danger">' . $error . '</div>';
+}
+?>
 <?php
 $games = get_all_games();
 ?>
