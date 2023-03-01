@@ -5,7 +5,7 @@
   include('../_inc/header.php');
   include('./_inc/nav.php');
   require_once '../_inc/functions.php';
-
+  checkAuthentication();
 ?>
 
 <a href="/admin/games/index.php">INDEX GAMES ADMIN</a>

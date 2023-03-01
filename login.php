@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $success = processLoginForm($_POST['email'], $_POST['password']);
   // Si le formulaire a été validé avec succès, rediriger vers la page d'accueil
   if ($user !== null) {
-    header('Location: index.php');
+    header('Location: admin/index.php');
     exit;
   } else {
     // Si la connexion échoue, afficher un message d'erreur

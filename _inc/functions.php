@@ -188,5 +188,13 @@ function verify_admin_credentials($email, $password) {
       return null;
     }
   }
+
+  function checkAuthentication() {
+    if (!array_key_exists('user', $_SESSION)) {
+      $_SESSION['notice'] = 'Accès refusé';
+      header('Location: index.php');
+      exit;
+    }
+  }
   
 ?>
