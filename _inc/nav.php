@@ -18,6 +18,9 @@ require_once 'functions.php';
     if ($user !== null) {
       // L'utilisateur est connecté
       echo '<li class="nav-item ">';
+      echo '<a class="nav-link text-light" href="/admin/index.php">ADMIN INDEX</a>';
+      echo '</li>';
+      echo '<li class="nav-item ">';
       echo '<a class="nav-link text-light" href="logout.php">Logout</a>';
       echo '</li>';
     } else {

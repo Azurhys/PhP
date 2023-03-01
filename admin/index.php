@@ -8,7 +8,7 @@
 
 ?>
 
-
+<a href="/admin/games/index.php">INDEX GAMES ADMIN</a>
 
 <?php
 include('../_inc/footer.php');
