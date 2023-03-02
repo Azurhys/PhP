@@ -7,13 +7,14 @@
   require_once '../../_inc/functions.php';
   checkAuthentication();
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Appeler la fonction processLoginForm pour traiter le formulaire
-    $success = processGameForm($_POST['title'], $_POST['description'], $_POST['release_date'], $_POST['poster'], $_POST['price']);
-    // Si le formulaire a été validé avec succès, rediriger vers la page d'accueil
-    if ($success) {
-      header('Location: admin/games/index.php');
-      exit;
-    } 
+    $data = $_POST;
+    $errors = validateData($data);
+    if (empty($errors)) {
+        $game_id = insertGame($data);
+        $_SESSION['notice'] = "Jeu vidéo ajouté";
+        header('Location: index.php');
+        exit;
+    }
   }
 ?>
 <div class="container">

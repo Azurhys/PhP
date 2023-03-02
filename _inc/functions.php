@@ -202,7 +202,7 @@ function verify_admin_credentials($email, $password) {
     // Validation des données du formulaire
     $constraints = getGameFormConstraints();
     $errors = validateData($data, $constraints);
-
+    var_dump($data['title'], $data['description'], $data['release_date']);
     // Si le formulaire n'est pas valide, stocker les erreurs dans la session et rediriger
     if (!empty($errors)) {
         $_SESSION['form_errors'] = $errors;
@@ -217,7 +217,7 @@ function verify_admin_credentials($email, $password) {
     $release_date = $data['release_date'];
     $poster = $data['poster'];
     $price = $data['price'];
-
+      
     // Vérification si c'est une création ou une modification
     if (empty($id)) {
         // Création d'un nouveau jeu vidéo
@@ -281,7 +281,6 @@ function isFloatInRange($input, $min, $max)
 
 function insertGame($data) {
   $conn = connect_db();
-
   $title = $conn->real_escape_string($data['title']);
   $description = $conn->real_escape_string($data['description']);
   $release_date = $conn->real_escape_string($data['release_date']);
@@ -289,9 +288,12 @@ function insertGame($data) {
   $price = $conn->real_escape_string($data['price']);
 
   $sql = "INSERT INTO game (title, description, release_date, poster, price) VALUES ('$title', '$description', '$release_date', '$poster', '$price')";
-  $conn->query($sql);
-
+  
+  $query = $conn->query($sql);
+  $last_id = $conn->insert_id;
+  
   $conn->close();
+  return $last_id;
 }
 
 function validateData($data) {
