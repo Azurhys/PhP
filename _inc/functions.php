@@ -197,4 +197,140 @@ function verify_admin_credentials($email, $password) {
     }
   }
   
+  function processGameForm($data)
+{
+    // Validation des données du formulaire
+    $constraints = getGameFormConstraints();
+    $errors = validateData($data, $constraints);
+
+    // Si le formulaire n'est pas valide, stocker les erreurs dans la session et rediriger
+    if (!empty($errors)) {
+        $_SESSION['form_errors'] = $errors;
+        $_SESSION['form_data'] = $data;
+        return false;
+    }
+
+    // Récupération des données du formulaire
+    $id = $data['id'];
+    $title = $data['title'];
+    $description = $data['description'];
+    $release_date = $data['release_date'];
+    $poster = $data['poster'];
+    $price = $data['price'];
+
+    // Vérification si c'est une création ou une modification
+    if (empty($id)) {
+        // Création d'un nouveau jeu vidéo
+        insertGame($title, $description, $release_date, $poster, $price);
+    } else {
+        // Modification d'un jeu vidéo existant
+        updateGame($id, $title, $description, $release_date, $poster, $price);
+    }
+
+    // Redirection vers la liste des jeux vidéo
+    header('Location: index.php');
+    exit;
+}
+
+/**
+ * Retourne les contraintes de validation du formulaire des jeux vidéo
+ *
+ * @return array Les contraintes de validation
+ */
+function getGameFormConstraints()
+{
+    return [
+        'id' => [], // Champ caché, pas besoin de validation
+        'title' => [
+            'required' => true,
+            'min_length' => 3,
+            'max_length' => 255,
+        ],
+        'description' => [
+            'required' => true,
+            'min_length' => 10,
+        ],
+        'release_date' => [
+            'required' => true,
+            'date_format' => 'Y-m-d',
+        ],
+        'poster' => [
+            'required' => true,
+            'url' => true,
+            'max_length' => 255,
+        ],
+        'price' => [
+            'required' => true,
+            'numeric' => true,
+            'isFloatInRange' => true,
+        ],
+    ];
+}
+
+function isFloatInRange($input, $min, $max)
+{
+    $options = [
+        'options' => [
+            'min_range' => $min,
+            'max_range' => $max,
+        ],
+    ];
+
+    return filter_var($input, FILTER_VALIDATE_FLOAT, $options) !== false;
+}
+
+function insertGame($data) {
+  $conn = connect_db();
+
+  $title = $conn->real_escape_string($data['title']);
+  $description = $conn->real_escape_string($data['description']);
+  $release_date = $conn->real_escape_string($data['release_date']);
+  $poster = $conn->real_escape_string($data['poster']);
+  $price = $conn->real_escape_string($data['price']);
+
+  $sql = "INSERT INTO game (title, description, release_date, poster, price) VALUES ('$title', '$description', '$release_date', '$poster', '$price')";
+  $conn->query($sql);
+
+  $conn->close();
+}
+
+function validateData($data) {
+  $errors = [];
+  
+  // Vérification du titre
+  if (empty($data['title'])) {
+    $errors[] = "Le champ titre est obligatoire.";
+  } else if (strlen($data['title']) > 255) {
+    $errors[] = "Le champ titre ne doit pas dépasser 255 caractères.";
+  }
+  
+  // Vérification de la description
+  if (empty($data['description'])) {
+    $errors[] = "Le champ description est obligatoire.";
+  }
+  
+  // Vérification de la date de sortie
+  if (empty($data['release_date'])) {
+    $errors[] = "Le champ date de sortie est obligatoire.";
+  } else {
+    $date = DateTime::createFromFormat('Y-m-d', $data['release_date']);
+    if (!$date || $date->format('Y-m-d') !== $data['release_date']) {
+      $errors[] = "Le champ date de sortie doit être au format AAAA-MM-JJ.";
+    }
+  }
+  
+  // Vérification de l'image
+  if (empty($data['poster'])) {
+    $errors[] = "Le champ image est obligatoire.";
+  }
+  
+  // Vérification du prix
+  if (empty($data['price'])) {
+    $errors[] = "Le champ prix est obligatoire.";
+  } else if (!isFloatInRange($data['price'], 0, 999.99)) {
+    $errors[] = "Le champ prix doit être un nombre décimal compris entre 0 et 999.99.";
+  }
+  
+  return $errors;
+}
 ?>
