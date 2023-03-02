@@ -335,4 +335,30 @@ function validateData($data) {
   
   return $errors;
 }
+
+function updateGame($data)
+{
+  $conn = connect_db();
+  
+  // Préparation de la requête SQL
+  $sql = "UPDATE game SET title=?, description=?, release_date=?, poster=?, price=? WHERE id=?";
+  $stmt = $conn->prepare($sql);
+  
+  // Récupération des données du formulaire
+  $title = $data['title'];
+  $description = $data['description'];
+  $release_date = $data['release_date'];
+  $poster = $data['poster'];
+  $price = $data['price'];
+  $id = $data['id'];
+
+  // var_dump( $title, $description, $release_date, $poster, $price, $id);exit;
+
+  $stmt->bind_param('ssssdi', $title, $description, $release_date, $poster, $price, $id);
+  
+  // Exécution de la requête SQL
+  $stmt->execute();
+  
+  $conn->close();
+}
 ?>

@@ -6,42 +6,64 @@
   include('../_inc/nav.php');
   require_once '../../_inc/functions.php';
   checkAuthentication();
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if(isset($_GET['id'])){
+    $get_game = get_game_by_id($_GET['id']);
+    // var_dump($get_game);
+  }
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = $_POST;
     $errors = validateData($data);
     if (empty($errors)) {
+      // var_dump(!isset($_GET['id'])); exit;
+        if(!isset($_GET['id'])){
         $game_id = insertGame($data);
         $_SESSION['notice'] = "Jeu vidéo ajouté";
         header('Location: index.php');
         exit;
+        }
+        else{
+        $game_id=updateGame($data);
+        $_SESSION['notice'] = "Jeu vidéo modifié";
+        header('Location: index.php');
+        exit;
+        }
     }
   }
 ?>
 <div class="container">
-<form action="form.php" method="POST">
+<form method="POST">
   <input type="hidden" name="id" value="">
   <div class="form-group mt-3">
     <label for="title">Titre :</label>
-    <input type="text" name="title" id="title" class="form-control">
+    <input type="text" name="title" id="title" class="form-control" value="<?= $get_game['title'] ?? null ?>">
   </div>
   <div class="form-group mt-3">
     <label for="description">Description :</label>
-    <textarea name="description" id="description" class="form-control"></textarea>
+    <textarea name="description" id="description" class="form-control" ><?= $get_game['description'] ?? null ?></textarea>
     </div>
   <div class="form-group mt-3">
     <label for="release_date">Date de sortie :</label>
-    <input type="date" name="release_date" id="release_date" class="form-control">
+    <input type="date" name="release_date" id="release_date" class="form-control" value="<?= $get_game['release_date'] ?? null ?>">
     </div>
   <div class="form-group mt-3">
     <label for="poster">URL de l'affiche :</label>
-    <input type="text" name="poster" id="poster" class="form-control">
+    <input type="text" name="poster" id="poster" class="form-control" value="<?= $get_game['poster'] ?? null ?>">
     </div>
   <div class="form-group mt-3">
     <label for="price">Prix :</label>
-    <input type="text" name="price" id="price" class="form-control">
+    <input type="text" name="price" id="price" class="form-control" value="<?= $get_game['price'] ?? null ?>">
   </div>
   <div class="d-flex justify-content-center">
-    <button type="submit" class="btn btn-success mt-3 ">Ajouter</button>
+    <input type="hidden" name="id" value="<?= $get_game['id'] ?? null ?>">
+    <?php 
+    if(isset($get_game['id'])){
+      echo '<button type="submit" class="btn btn-warning mt-3 ">Modifier</button>';
+    }
+    else {
+      echo '<button type="submit" class="btn btn-success mt-3 ">Ajouter</button>';
+    }
+    ?>
+    
   </div>
 </form>
 </div>
