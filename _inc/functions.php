@@ -359,6 +359,16 @@ function updateGame($data)
   // Exécution de la requête SQL
   $stmt->execute();
   
+
+  function deleteGame($id) {
+    $conn = connect_db();
+    $id = $conn->real_escape_string($id);
+    $sql = "DELETE FROM game WHERE id=$id";
+    $result = $conn->query($sql);
+    $conn->close();
+    $_SESSION['notice'] = "Jeu vidéo supprimé";
+  }
+  
   $conn->close();
 }
 ?>

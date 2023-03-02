@@ -35,7 +35,7 @@
         <td><?php echo date('d/m/Y', strtotime($game['release_date'])); ?></td>
         <td>
           <a href="form.php?id=<?php echo $game['id']; ?>" class="text-decoration-none text-white"><button class="btn btn-warning">Modifier</button></a>
-          <a href="delete_game.php?id=<?php echo $game['id']; ?>" class="text-decoration-none text-white"><button class="btn btn-danger">Supprimer</button></a>
+          <a href="delete.php?id=<?php echo $game['id']; ?>" class="text-decoration-none text-white"><button class="btn btn-danger">Supprimer</button></a>
         </td>
       </tr>
     <?php } ?>
