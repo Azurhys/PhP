@@ -286,6 +286,7 @@ function insertGame($data) {
   $release_date = $conn->real_escape_string($data['release_date']);
   $poster = $conn->real_escape_string($data['poster']);
   $price = $conn->real_escape_string($data['price']);
+  $editor_id = $conn->real_escape_string($data['editor_id']);
 
   $sql = "INSERT INTO game (title, description, release_date, poster, price) VALUES ('$title', '$description', '$release_date', '$poster', '$price')";
   
@@ -339,36 +340,41 @@ function validateData($data) {
 function updateGame($data)
 {
   $conn = connect_db();
-  
-  // Préparation de la requête SQL
-  $sql = "UPDATE game SET title=?, description=?, release_date=?, poster=?, price=? WHERE id=?";
-  $stmt = $conn->prepare($sql);
-  
-  // Récupération des données du formulaire
-  $title = $data['title'];
-  $description = $data['description'];
-  $release_date = $data['release_date'];
-  $poster = $data['poster'];
-  $price = $data['price'];
-  $id = $data['id'];
+  $id = $conn->real_escape_string($data['id']);
+  $title = $conn->real_escape_string($data['title']);
+  $description = $conn->real_escape_string($data['description']);
+  $release_date = $conn->real_escape_string($data['release_date']);
+  $poster = $conn->real_escape_string($data['poster']);
+  $price = $conn->real_escape_string($data['price']);
+  $editor_id = $conn->real_escape_string($data['editor_id']);
+  $sql = "UPDATE game SET title='$title', description='$description', release_date='$release_date', poster='$poster', price=$price, editor_id=$editor_id WHERE id=$id";
+  $result = $conn->query($sql);
+  $conn->close();
+}
 
-  // var_dump( $title, $description, $release_date, $poster, $price, $id);exit;
 
-  $stmt->bind_param('ssssdi', $title, $description, $release_date, $poster, $price, $id);
-  
-  // Exécution de la requête SQL
-  $stmt->execute();
-  
-
-  function deleteGame($id) {
+function deleteGame($id) {
     $conn = connect_db();
     $id = $conn->real_escape_string($id);
     $sql = "DELETE FROM game WHERE id=$id";
     $result = $conn->query($sql);
     $conn->close();
     $_SESSION['notice'] = "Jeu vidéo supprimé";
-  }
-  
-  $conn->close();
 }
+
+function getAllEditors() {
+  $conn = connect_db();
+  $sql = "SELECT * FROM editor";
+  $result = $conn->query($sql);
+  $editors = array();
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $editors[] = $row;
+    }
+  }
+  $conn->close();
+  return $editors;
+}
+
+
 ?>

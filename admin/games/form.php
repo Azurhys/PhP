@@ -6,6 +6,7 @@
   include('../_inc/nav.php');
   require_once '../../_inc/functions.php';
   checkAuthentication();
+  $editors = getAllEditors();
   if(isset($_GET['id'])){
     $get_game = get_game_by_id($_GET['id']);
     // var_dump($get_game);
@@ -52,6 +53,16 @@
   <div class="form-group mt-3">
     <label for="price">Prix :</label>
     <input type="text" name="price" id="price" class="form-control" value="<?= $get_game['price'] ?? null ?>">
+  </div>
+  <div class="form-group mt-3">
+    <?php 
+    echo '<label for="editor_id">Editeur :</label>';
+    echo '<select name="editor_id" id="editor_id" value="<?= $get_game[\'editor_id\'] ?? null ?>">';
+    foreach ($editors as $editor) {
+        echo '<option value="' . $editor['id'] . '">' . $editor['name'] . '</option>';
+    }
+    echo '</select>';
+    ?>
   </div>
   <div class="d-flex justify-content-center">
     <input type="hidden" name="id" value="<?= $get_game['id'] ?? null ?>">

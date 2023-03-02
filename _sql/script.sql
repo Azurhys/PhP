@@ -24,3 +24,44 @@ CREATE TABLE videogames.admin (
 
 INSERT INTO videogames.admin (id, email, password)
 VALUES (1, 'admin@example.com', '$argon2i$v=19$m=16,t=2,p=1$WXAwMkU2OGtSRngwNDFaSQ$iGwjcHC+ZXzJZg5bqp9fIw');
+
+CREATE TABLE videogames.editor (
+  id TINYINT PRIMARY KEY,
+  name VARCHAR(255)
+);
+
+INSERT INTO videogames.editor (id, name) VALUES
+  (1, 'Nintendo'),
+  (2, 'Rockstar'),
+  (3, 'Activision Blizzard');
+
+ALTER TABLE videogames.game
+ADD COLUMN editor_id TINYINT AFTER price,
+ADD FOREIGN KEY (editor_id) REFERENCES editor(id);
+
+CREATE TABLE videogames.category (
+  id TINYINT UNSIGNED PRIMARY KEY,
+  name VARCHAR(50) UNIQUE
+);
+
+CREATE TABLE videogames.game_category (
+  game_id MEDIUMINT UNSIGNED ,
+  category_id TINYINT UNSIGNED ,
+  PRIMARY KEY (game_id, category_id),
+  FOREIGN KEY (game_id) REFERENCES videogames.game(id),
+  FOREIGN KEY (category_id) REFERENCES videogames.category(id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO videogames.category (id, name) VALUES
+  (1, 'Action'),
+  (2, 'Aventure'),
+  (3, 'Sport'),
+  (4, 'Open World');
+
+INSERT INTO videogames.game_category (game_id, category_id) VALUES
+  (1, 1),
+  (1, 2),
+  (2, 2),
+  (2, 1),
+  (3, 1),
+  (3, 4);

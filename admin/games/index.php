@@ -23,6 +23,7 @@
       <th>Titre</th>
       <th>Prix</th>
       <th>Date de sortie</th>
+      <th>Editeur</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -33,6 +34,7 @@
         <td><?php echo $game['title']; ?></td>
         <td><?php echo $game['price']; ?> €</td>
         <td><?php echo date('d/m/Y', strtotime($game['release_date'])); ?></td>
+        <td><?php echo $game['editor_id']; ?></td>
         <td>
           <a href="form.php?id=<?php echo $game['id']; ?>" class="text-decoration-none text-white"><button class="btn btn-warning">Modifier</button></a>
           <a href="delete.php?id=<?php echo $game['id']; ?>" class="text-decoration-none text-white"><button class="btn btn-danger">Supprimer</button></a>
