@@ -2,8 +2,10 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-if(!defined('THISBASEPATH')){ define('THISBASEPATH', 'C:/Users/antoi/Desktop/php/videogames/'); }
-require_once THISBASEPATH .'_inc/functions.php';
+//if(!defined('THISBASEPATH')){ define('THISBASEPATH', '../')}; 
+// require_once '../_inc/functions.php';
+
+// require_once '../../_inc/functions.php';
 
 ?>
 <nav class="navbar navbar-expand-lg bg-primary">

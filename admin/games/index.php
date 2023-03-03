@@ -2,9 +2,9 @@
   if (session_status() == PHP_SESSION_NONE) {
     session_start();
   }
+  require_once '../../_inc/functions.php';
   include('../../_inc/header.php');
   include('../_inc/nav.php');
-  require_once '../../_inc/functions.php';
   checkAuthentication();
   $games = get_all_games();
 
