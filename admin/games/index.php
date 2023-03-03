@@ -30,7 +30,7 @@
   <tbody>
     <?php foreach ($games as $game) { ?>
       <tr>
-        <td><img src="<?php echo $game['poster']; ?>" alt="<?php echo $game['title']; ?>"></td>
+        <td><img src="<?php echo $game['poster']; ?>" alt="<?php echo $game['title']; ?>" class="minia"></td>
         <td><?php echo $game['title']; ?></td>
         <td><?php echo $game['price']; ?> €</td>
         <td><?php echo date('d/m/Y', strtotime($game['release_date'])); ?></td>

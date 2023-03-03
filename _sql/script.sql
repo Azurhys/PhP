@@ -12,9 +12,9 @@ CREATE TABLE videogames.game (
 );
 
 INSERT INTO videogames.game (id, title, description, release_date, poster, price) VALUES
-(NULL, 'Super Mario Bros', 'Jeu video de plateforme', '1985-09-13', 'https://example.com/super-mario-bros.jpg', 59.99),
-(NULL, 'The Legend of Zelda: Ocarina of Time', 'Jeu video d\'action-aventure', '1998-11-23', 'https://example.com/zelda-ocarina-of-time.jpg', 49.99),
-(NULL, 'Grand Theft Auto V', 'Jeu video d\'action-aventure', '2013-09-17', 'https://example.com/gta5.jpg', 29.99);
+(NULL, 'Super Mario Bros', 'Jeu video de plateforme', '1985-09-13', 'https://m.media-amazon.com/images/I/917+5vALQyL._AC_SL1500_.jpg', 59.99),
+(NULL, 'The Legend of Zelda: Ocarina of Time', 'Jeu video d\'action-aventure', '1998-11-23', 'https://upload.wikimedia.org/wikipedia/fr/5/54/The_Legend_of_Zelda_Ocarina_of_Time_Logo.png', 49.99),
+(NULL, 'Grand Theft Auto V', 'Jeu video d\'action-aventure', '2013-09-17', 'https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/games/fob/1280/V.jpg', 29.99);
 
 CREATE TABLE videogames.admin (
   id TINYINT PRIMARY KEY,

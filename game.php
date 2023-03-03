@@ -32,7 +32,7 @@ if (!$game) {
 
 <div class="game-details">
   <h2><?= $game['title'] ?></h2>
-  <img src="<?= $game['poster'] ?>" alt="<?= $game['title'] ?>" width="400" height="600">
+  <img src="<?= $game['poster'] ?>" alt="<?= $game['title'] ?>" class="minia">
   <p>Description: <?= $game['description'] ?></p>
   <p>Date de sortie: <?= (new DateTime($game['release_date']))->format('d/m/Y') ?></p>
   <p>Prix: <?= $game['price'] ?> €</p>

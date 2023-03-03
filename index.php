@@ -37,7 +37,7 @@ if ($error) {
     <?php foreach ($games as $game): ?>
       <div class="game">
         <h2><?= $game['title'] ?></h2>
-        <img src="<?= $game['poster'] ?>" alt="<?= $game['title'] ?>" width="300" height="400">
+        <img src="<?= $game['poster'] ?>" alt="<?= $game['title'] ?>" class="minia">
         <p>Prix: <?= $game['price'] ?> €</p>
         <a href="game.php?id=<?= $game['id'] ?>">Consulter</a>
       </div>
